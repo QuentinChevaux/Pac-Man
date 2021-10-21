@@ -1,3 +1,13 @@
+body {
+    background-color: black;
+}
+
+.title {
+    position: absolute;
+    left: 150px;
+    width: 300px;
+}
+
 #niveau_grid {
     display: grid;
     grid-template-columns: repeat(19, 40px);
@@ -19,4 +29,8 @@
 
 .bonbon {
     background-image: url("/images/bonbon.gif");
+}
+
+.player {
+    background-image: url("/images/pacman4.gif")
 }

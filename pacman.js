@@ -48,6 +48,8 @@ let grille = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
+setInterval(tour_de_jeu,500);
+
 let columns = 19;
 let rows = 22;
 
@@ -82,6 +84,23 @@ function play() {
         }
     }
 }
-setInterval(play,500);
 
-   
+function tour_de_jeu() {
+    play(); 
+    affiche_pacman();
+}
+
+let pacman = {
+    x : 5,
+    y : 2,
+    direction : 0
+}
+
+function affiche_pacman() {
+    let player = document.createElement("div")
+    player.className = "player"
+    niveau.appendChild(player);
+
+    player.style.gridRowStart = 1;
+    player.style.gridColumnStart = 1;
+}
