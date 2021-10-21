@@ -82,7 +82,6 @@ function play() {
         }
     }
 }
-setInterval(play,500)
+setInterval(play,500);
 
-
-    
+   
