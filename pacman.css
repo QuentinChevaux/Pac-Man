@@ -1,0 +1,20 @@
+#niveau_grid {
+    display: grid;
+    grid-template-columns: repeat(19, 40px);
+    grid-template-rows: repeat(22, 40px);
+
+    width: 50%;
+    margin: auto;
+}
+
+.mur {
+    background-image: url("/images/mur.gif");
+}
+
+.sol {
+    background-image: url("/images/sol.gif");
+}
+
+.bonbon {
+    background-image: url("/images/bonbon.gif");
+}
