@@ -67,18 +67,24 @@ function play() {
             let mur = document.createElement("div");
             mur.className = "mur";
             niveau.appendChild(mur);
+            mur.style.gridRowStart = row + 1;
+            mur.style.gridColumnStart = column + 1;
             }
 
             if (grille[row][column] == 1) {
                 let sol = document.createElement("div");
                 sol.className = "sol";
                 niveau.appendChild(sol);
+                sol.style.gridRowStart = row + 1;
+                sol.style.gridColumnStart = column + 1;
             }
 
             if (grille[row][column] == 2) {
                 let bonbon = document.createElement("div");
                 bonbon.className = "bonbon";
                 niveau.appendChild(bonbon);
+                bonbon.style.gridRowStart = row + 1;
+                bonbon.style.gridColumnStart = column + 1;
             }
 
         }
@@ -90,7 +96,7 @@ function tour_de_jeu() {
     affiche_pacman();
 }
 
-let pacman = {
+let player_position = {
     x : 5,
     y : 2,
     direction : 0
@@ -101,6 +107,6 @@ function affiche_pacman() {
     player.className = "player"
     niveau.appendChild(player);
 
-    player.style.gridRowStart = 1;
-    player.style.gridColumnStart = 1;
+    player.style.gridRowStart = player_position.x;
+    player.style.gridColumnStart = player_position.y;
 }
