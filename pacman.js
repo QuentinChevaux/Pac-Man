@@ -52,7 +52,7 @@ let grille = [
 
 let score = 0;
 
-setInterval(tour_de_jeu, 500);
+let interval = setInterval(tour_de_jeu, 500);
 
 let columns = 19;
 let rows = 22;
@@ -158,6 +158,27 @@ function tp() {
 
 }
 
+function victoire() {
+    
+    let gagne = true
+
+    for (let row = 0; row < rows; row++) {
+
+        for (let column = 0; column < columns; column++) {            
+
+            if (grille[row][column] == 2) {
+                gagne = false   
+
+            }
+
+        }
+    }
+
+    if (gagne == true) {
+        alert("Vous Avez Gagné !")
+        clearInterval(interval);
+    }
+}
 
 function play() {
 
@@ -220,7 +241,86 @@ function affiche_pacman() {
 let spawn = {
     x : 1,
     y : 2,
-    direction : 1 // 0 = Ne pas Bouger 1 = Droite, 2 = Bas, 3 = Gauche, 4 = Haut
+    direction : 1 // 1 = Droite, 2 = Bas, 3 = Gauche, 4 = Haut
+}
+
+let tabFantome = [
+    {
+        x : 9,
+        y : 11,
+        direction : 4
+    },
+    {
+        x : 10,
+        y : 11,
+        direction : 4
+    },
+    {
+        x : 11,
+        y : 11,
+        direction : 4
+    },
+    {
+        x : 10,
+        y : 10,
+        direction : 4
+    }
+
+]
+
+for (i = 0 < tabFantome) {
+    
+}
+
+function affiche_fantome() {
+    let fantome = document.createElement("div")
+    fantome.className = "fantome_1"
+    niveau.appendChild(fantome);
+
+    fantome.style.gridColumnStart = spawn_fantome.x;
+    fantome.style.gridRowStart = spawn_fantome.y;    
+}
+
+function clip_fantome() {
+        
+    if (grille[spawn_fantome.y-1][spawn_fantome.x-1] == 0) {
+
+        if (spawn_fantome.direction == 1) {
+            spawn_fantome.x = spawn_fantome.x-1;
+        }
+
+        else if (spawn_fantome.direction == 2) {
+            spawn_fantome.y = spawn_fantome.y-1;
+        }
+
+        else if (spawn_fantome.direction == 3) {
+            spawn_fantome.x = spawn_fantome.x+1;
+        }
+
+        else if (spawn_fantome.direction == 4) {
+            spawn_fantome.y = spawn_fantome.y+1;
+        }
+        
+    } 
+}
+
+function deplacer_fantome() {
+
+    spawn_fantome.direction=getRandomInt(4)+1
+
+    if (spawn_fantome.direction == 1) {
+        spawn_fantome.x = spawn_fantome.x+1;
+    }
+    else if (spawn_fantome.direction == 2) {
+        spawn_fantome.y = spawn_fantome.y+1;
+    }
+    else if (spawn_fantome.direction == 3) {
+        spawn_fantome.x = spawn_fantome.x-1;
+    }
+    else if (spawn_fantome.direction == 4) {
+        spawn_fantome.y = spawn_fantome.y-1;
+    }
+
 }
 
 function tour_de_jeu() {
@@ -228,9 +328,19 @@ function tour_de_jeu() {
     deplacer();
     clip();
 
+    deplacer_fantome();
+    clip_fantome();
+
     tp(); 
     manger();
     affiche_pacman();
+    affiche_fantome();
+
+    setTimeout(victoire, 100);
 }
 
 mouvement();
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }

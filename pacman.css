@@ -4,7 +4,9 @@
 }
 
 body {
-    background-color: black;
+    background: url(/images/background.gif);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .title {
@@ -31,6 +33,16 @@ body {
     font-family: PacMan_font;
 }
 
+#restart {
+    position: absolute;
+    font-family: pacfont;
+    width: 300px;
+    height: 100px;
+    font-size: 30px;
+    bottom: 40px;
+    left: 150px;
+}
+
 #niveau_grid {
     display: grid;
     grid-template-columns: repeat(19, 40px);
@@ -40,6 +52,7 @@ body {
     margin: auto;
 
     margin-bottom: 30px;
+    margin-top: 50px;
 }
 
 .mur {
@@ -56,4 +69,20 @@ body {
 
 .player {
     background-image: url("/images/pacman4.gif")
+}
+
+.fantome_1 {
+    background-image: url("/images/fantome1.gif");
+}
+
+.fantome_2 {
+    background-image: url("/images/fantome2.gif");
+}
+
+.fantome_3 {
+    background-image: url("/images/fantome3.gif");
+}
+
+.fantome_4 {
+    background-image: url("/images/fantome4.gif");
 }
