@@ -280,7 +280,7 @@ let tabFantome = [
 
 function affiche_fantome(num) {
     let fantome = document.createElement("div")
-    fantome.className = "fantome_" + (num%4)
+    fantome.className = "fantome_" + (num % 4)
     niveau.appendChild(fantome);
 
     fantome.style.gridColumnStart = tabFantome[num].x;
