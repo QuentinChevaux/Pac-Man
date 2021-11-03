@@ -1,11 +1,34 @@
+@font-face {
+  font-family: PacMan_font;
+  src: url(font/crackman.ttf);
+}
+
 body {
     background-color: black;
 }
 
 .title {
     position: absolute;
+    left: 110px;
+    width: 400px;
+}
+
+.score {
+    margin-top: 50px;
+    color: #fff;
+    position: absolute;
     left: 150px;
+    top: 125px;
     width: 300px;
+    text-align: center;
+    font-size: 35px;
+    font-family: pacfont;
+}
+
+.score div {
+    margin-top: -30px;
+    font-size: 90px;
+    font-family: PacMan_font;
 }
 
 #niveau_grid {

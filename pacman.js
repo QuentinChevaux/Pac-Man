@@ -107,7 +107,6 @@ function mouvement() {
 }
 
 function clip() {
-
         
     if (grille[spawn.y-1][spawn.x-1] == 0) {
 
@@ -135,9 +134,28 @@ function manger() {
     if (grille[spawn.y-1][spawn.x-1] == 2) {
         
         grille[spawn.y-1][spawn.x-1] = 1
-        score+=10
+
+        score += 10
+
+        document.getElementById("score_valeur").innerHTML = score;
 
     }
+}
+
+function tp() {
+
+    if (spawn.x < 1) {
+
+        spawn.x = 19
+
+    }
+
+    if (spawn.x > 19) {
+
+        spawn.x = 1
+
+    }
+
 }
 
 
@@ -184,6 +202,19 @@ function affiche_pacman() {
 
     player.style.gridColumnStart = spawn.x;
     player.style.gridRowStart = spawn.y;
+
+    if (spawn.direction == 1) {
+        player.style.transform = 'rotate(0deg)' 
+    }
+    else if (spawn.direction == 2) {
+        player.style.transform = 'rotate(90deg)' 
+    }
+    else if (spawn.direction == 3) {
+        player.style.transform = 'rotate(180deg)' 
+    }
+    else if (spawn.direction == 4) {
+        player.style.transform = 'rotate(270deg)'    
+    }
 }
 
 let spawn = {
@@ -194,11 +225,12 @@ let spawn = {
 
 function tour_de_jeu() {
     play();
-    deplacer(); 
+    deplacer();
     clip();
-    affiche_pacman();
-    manger();   
-}
 
+    tp(); 
+    manger();
+    affiche_pacman();
+}
 
 mouvement();
