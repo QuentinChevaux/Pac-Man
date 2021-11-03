@@ -71,6 +71,10 @@ body {
     background-image: url("/images/pacman4.gif")
 }
 
+.fantome_0 {
+    background-image: url("/images/fantome0.gif");
+}
+
 .fantome_1 {
     background-image: url("/images/fantome1.gif");
 }
@@ -81,8 +85,4 @@ body {
 
 .fantome_3 {
     background-image: url("/images/fantome3.gif");
-}
-
-.fantome_4 {
-    background-image: url("/images/fantome4.gif");
 }

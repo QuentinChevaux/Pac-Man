@@ -264,77 +264,90 @@ let tabFantome = [
         x : 10,
         y : 10,
         direction : 4
+    },
+    {
+        x : 10,
+        y : 10,
+        direction : 4
+    },
+    {
+        x : 10,
+        y : 10,
+        direction : 4
     }
 
 ]
 
-for (i = 0 < tabFantome) {
-    
-}
-
-function affiche_fantome() {
+function affiche_fantome(num) {
     let fantome = document.createElement("div")
-    fantome.className = "fantome_1"
+    fantome.className = "fantome_" + (num%4)
     niveau.appendChild(fantome);
 
-    fantome.style.gridColumnStart = spawn_fantome.x;
-    fantome.style.gridRowStart = spawn_fantome.y;    
+    fantome.style.gridColumnStart = tabFantome[num].x;
+    fantome.style.gridRowStart = tabFantome[num].y;    
 }
 
-function clip_fantome() {
+function clip_fantome(num) {
         
-    if (grille[spawn_fantome.y-1][spawn_fantome.x-1] == 0) {
+    if (grille[tabFantome[num].y-1][tabFantome[num].x-1] == 0) {
 
-        if (spawn_fantome.direction == 1) {
-            spawn_fantome.x = spawn_fantome.x-1;
+        if (tabFantome[num].direction == 1) {
+            tabFantome[num].x = tabFantome[num].x-1;
         }
 
-        else if (spawn_fantome.direction == 2) {
-            spawn_fantome.y = spawn_fantome.y-1;
+        else if (tabFantome[num].direction == 2) {
+            tabFantome[num].y = tabFantome[num].y-1;
         }
 
-        else if (spawn_fantome.direction == 3) {
-            spawn_fantome.x = spawn_fantome.x+1;
+        else if (tabFantome[num].direction == 3) {
+            tabFantome[num].x = tabFantome[num].x+1;
         }
 
-        else if (spawn_fantome.direction == 4) {
-            spawn_fantome.y = spawn_fantome.y+1;
+        else if (tabFantome[num].direction == 4) {
+            tabFantome[num].y = tabFantome[num].y+1;
         }
         
     } 
 }
 
-function deplacer_fantome() {
+function deplacer_fantome(num) {
 
-    spawn_fantome.direction=getRandomInt(4)+1
+    tabFantome[num].direction = getRandomInt(4)+1
 
-    if (spawn_fantome.direction == 1) {
-        spawn_fantome.x = spawn_fantome.x+1;
+    if (tabFantome[num].direction == 1) {
+        tabFantome[num].x = tabFantome[num].x+1;
     }
-    else if (spawn_fantome.direction == 2) {
-        spawn_fantome.y = spawn_fantome.y+1;
+    else if (tabFantome[num].direction == 2) {
+        tabFantome[num].y = tabFantome[num].y+1;
     }
-    else if (spawn_fantome.direction == 3) {
-        spawn_fantome.x = spawn_fantome.x-1;
+    else if (tabFantome[num].direction == 3) {
+        tabFantome[num].x = tabFantome[num].x-1;
     }
-    else if (spawn_fantome.direction == 4) {
-        spawn_fantome.y = spawn_fantome.y-1;
+    else if (tabFantome[num].direction == 4) {
+        tabFantome[num].y = tabFantome[num].y-1;
     }
 
 }
 
+
 function tour_de_jeu() {
+   
+
     play();
     deplacer();
     clip();
 
-    deplacer_fantome();
-    clip_fantome();
-
     tp(); 
     manger();
     affiche_pacman();
-    affiche_fantome();
+
+    for (i = 0; i < tabFantome.length; i++) {
+        console.log(i)
+        deplacer_fantome(i);
+        clip_fantome(i);
+        affiche_fantome(i);
+
+    }
 
     setTimeout(victoire, 100);
 }
