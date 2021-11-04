@@ -178,7 +178,7 @@ function victoire() {
 
     if (gagne) {
 
-        alert("Vous Avez Gagné !")
+        alertify.alert("Vous Avez Gagné !! &#127881; &#127942;");
         clearInterval(interval);
 
     }
@@ -268,7 +268,7 @@ let tabFantome = [
         x : 10,
         y : 10,
         direction : 4
-    }  
+    }
 
 ]
 
@@ -306,7 +306,7 @@ function clip_fantome(num) {
 
 function deplacer_fantome(num) {
 
-    tabFantome[num].direction = getRandomInt(4)+1
+    tabFantome[num].direction = getRandomInt(4)+1   
 
     if (tabFantome[num].direction == 1) {
         tabFantome[num].x = tabFantome[num].x+1;
@@ -325,18 +325,39 @@ function deplacer_fantome(num) {
 
 function tp_fantome(num) {
 
-    if (tabFantome[num].x < 2) {
+    if (tabFantome[num].x < 1) {
 
-        tabFantome[num].x = tabFantome[num].x+1;
+        tabFantome[num].x = 19 ;
 
     }
 
-    if (tabFantome[num].x > 18) {
+    if (tabFantome[num].x > 19) {
 
-        tabFantome[num].x = tabFantome[num].x-1;
+        tabFantome[num].x = 1;
 
     }
 }
+
+function defaite(num) {
+
+    let pacman_position_x = spawn.x
+    let pacman_position_y = spawn.y
+
+    let fantome_position_x = tabFantome[num].x
+    let fantome_position_y = tabFantome[num].y
+
+    if (pacman_position_x == fantome_position_x && pacman_position_y == fantome_position_y) {
+
+        setTimeout(() => {
+            alertify
+            .alert("Vous Avez Perdu ! &#128078;");
+        }, 200);
+        
+        clearInterval(interval);
+
+    }
+}
+
 
 function tour_de_jeu() {
     play();
@@ -349,12 +370,14 @@ function tour_de_jeu() {
 
     for (i = 0; i < tabFantome.length; i++) {
 
+        defaite(i); // Avant que le fantome se deplace
         tp_fantome(i);
         deplacer_fantome(i);
         clip_fantome(i);
+        defaite(i);
         affiche_fantome(i);
 
-    }
+    }  
 
     setTimeout(victoire, 100);
 }
