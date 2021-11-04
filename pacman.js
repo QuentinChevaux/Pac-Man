@@ -79,6 +79,7 @@ function deplacer() {
 function mouvement() {
 
     document.addEventListener("keyup", function(event) {
+
         if (event.key === 'd') {
 
            spawn.direction = 1
@@ -167,6 +168,7 @@ function victoire() {
         for (let column = 0; column < columns; column++) {            
 
             if (grille[row][column] == 2) {
+
                 gagne = false   
 
             }
@@ -174,9 +176,11 @@ function victoire() {
         }
     }
 
-    if (gagne == true) {
+    if (gagne) {
+
         alert("Vous Avez Gagné !")
         clearInterval(interval);
+
     }
 }
 
@@ -264,17 +268,7 @@ let tabFantome = [
         x : 10,
         y : 10,
         direction : 4
-    },
-    {
-        x : 10,
-        y : 10,
-        direction : 4
-    },
-    {
-        x : 10,
-        y : 10,
-        direction : 4
-    }
+    }  
 
 ]
 
@@ -329,20 +323,33 @@ function deplacer_fantome(num) {
 
 }
 
+function tp_fantome(num) {
+
+    if (tabFantome[num].x < 2) {
+
+        tabFantome[num].x = tabFantome[num].x+1;
+
+    }
+
+    if (tabFantome[num].x > 18) {
+
+        tabFantome[num].x = tabFantome[num].x-1;
+
+    }
+}
 
 function tour_de_jeu() {
-   
-
     play();
+
     deplacer();
     clip();
-
     tp(); 
     manger();
     affiche_pacman();
 
     for (i = 0; i < tabFantome.length; i++) {
-        console.log(i)
+
+        tp_fantome(i);
         deplacer_fantome(i);
         clip_fantome(i);
         affiche_fantome(i);
