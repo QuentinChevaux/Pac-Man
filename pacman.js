@@ -27,7 +27,7 @@ image_counter++;
 
 let grille = [                      
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0],
+    [0, 1, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0],
     [0, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0],
     [0, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0],
     [0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0],
@@ -50,14 +50,20 @@ let grille = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-let score = 0;
+let grille_reset = JSON.parse(JSON.stringify(grille))
 
-let interval = setInterval(tour_de_jeu, 500);
+let niveau = document.getElementById("niveau_grid");
 
 let columns = 19;
 let rows = 22;
 
-let niveau = document.getElementById("niveau_grid");
+let score = 10;
+
+let score_precedent = 0;
+
+//play();
+
+let interval = setInterval(tour_de_jeu, 500);
 
 function deplacer() {
 
@@ -136,9 +142,9 @@ function manger() {
         
         grille[spawn.y-1][spawn.x-1] = 1
 
-        score += 10
+        score += (10 * tabFantome.length)
 
-        document.getElementById("score_valeur").innerHTML = score;
+        document.getElementById("score_valeur").innerHTML = score ;
 
     }
 }
@@ -250,27 +256,45 @@ let spawn = {
 
 let tabFantome = [
     {
-        x : 9,
-        y : 11,
-        direction : 4
-    },
-    {
         x : 10,
         y : 11,
-        direction : 4
-    },
-    {
-        x : 11,
-        y : 11,
-        direction : 4
-    },
-    {
-        x : 10,
-        y : 10,
         direction : 4
     }
-
 ]
+
+document.getElementById("valider_nb_fantome").addEventListener('click', nombre_fantome);
+
+function nombre_fantome() {
+
+    let nb = document.getElementById("nombre_fantome").value
+
+    clearInterval(interval);
+    
+    grille = JSON.parse(JSON.stringify(grille_reset))
+
+    tabFantome = []
+    
+    spawn.x = 1
+    spawn.y = 2
+    spawn.direction = 1
+        
+    score = 0;
+    
+    interval = setInterval(tour_de_jeu, 500)  
+    
+    for (j = 0; j < nb; j++) {    
+
+       tabFantome.push({
+        x : 10,
+        y : 11,
+        direction : 4
+        })
+
+    }
+
+}
+
+let tabFantome_reset = JSON.parse(JSON.stringify(tabFantome))
 
 function affiche_fantome(num) {
     let fantome = document.createElement("div")
@@ -306,7 +330,7 @@ function clip_fantome(num) {
 
 function deplacer_fantome(num) {
 
-    tabFantome[num].direction = getRandomInt(4)+1   
+    tabFantome[num].direction = getRandomInt(4)+1       
 
     if (tabFantome[num].direction == 1) {
         tabFantome[num].x = tabFantome[num].x+1;
@@ -358,14 +382,42 @@ function defaite(num) {
     }
 }
 
+document.getElementById("restart").addEventListener('click', reset);
+
+function reset() {
+
+    clearInterval(interval);
+
+    grille = JSON.parse(JSON.stringify(grille_reset))
+    tabFantome = JSON.parse(JSON.stringify(tabFantome_reset))
+
+    spawn.x = 1
+    spawn.y = 2
+    spawn.direction = 1
+    
+    for (i = 0; i < tabFantome.length; i++) {
+        tabFantome.x = 10
+        tabFantome.y = 11
+        tabFantome.direction = 4
+    }
+
+    score_precedent = score;
+
+    document.getElementById("score_precedent").innerHTML = score_precedent;
+
+    score = 0;
+
+    interval = setInterval(tour_de_jeu, 500)   
+}
 
 function tour_de_jeu() {
-    play();
 
+    play(); 
     deplacer();
+    tp();
     clip();
-    tp(); 
-    manger();
+    manger();   
+    
     affiche_pacman();
 
     for (i = 0; i < tabFantome.length; i++) {
@@ -377,9 +429,10 @@ function tour_de_jeu() {
         defaite(i);
         affiche_fantome(i);
 
-    }  
+    }
 
     setTimeout(victoire, 100);
+
 }
 
 mouvement();

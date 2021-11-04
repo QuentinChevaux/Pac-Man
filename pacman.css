@@ -33,13 +33,62 @@ body {
     font-family: PacMan_font;
 }
 
+.score_precedent {
+    position: absolute;
+    top: 450px;
+    left: 130px;
+    color: #fff;
+    font-size: 25px;
+    font-family: pacfont;
+    text-align: center;
+}
+
+.score_precedent div {
+    text-align: center;
+    font-size: 80px;
+    font-family: PacMan_font;
+}
+
+#nombre_fantome {
+    position: absolute;
+    right: 170px;
+    top: 250px;
+    width: 200px;
+    font-size: 40px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+input::placeholder {
+    font-size: 25px;
+}
+
+#valider_nb_fantome {
+    position: absolute;
+    right: 170px;
+    top: 325px;
+    width: 208px;
+    font-size: 40px;
+    font-family: PacMan_font;
+}
+
+.choissisez_nb_fantome {
+    position: absolute;
+    right: 15px;
+    top: 50px;
+    color: #fff;
+    font-size: 50px;
+    font-family: PacMan_font;
+    text-align: center;
+}
+
 #restart {
     position: absolute;
     font-family: pacfont;
     width: 300px;
     height: 100px;
     font-size: 30px;
-    bottom: 40px;
+    bottom: 150px;
     left: 150px;
 }
 
