@@ -54,6 +54,8 @@ let grille_reset = JSON.parse(JSON.stringify(grille))
 
 let niveau = document.getElementById("niveau_grid");
 
+let nom
+
 let columns = 19;
 let rows = 22;
 
@@ -64,6 +66,64 @@ let score_precedent = 0;
 //play();
 
 let interval = setInterval(tour_de_jeu, 500);
+
+document.getElementById("vitesse_1").addEventListener('click', vitesse_1);
+document.getElementById("vitesse_2").addEventListener('click', vitesse_2);
+document.getElementById("vitesse_3").addEventListener('click', vitesse_3);
+document.getElementById("vitesse_4").addEventListener('click', vitesse_4);
+document.getElementById("vitesse_5").addEventListener('click', vitesse_5);
+document.getElementById("vitesse_6").addEventListener('click', vitesse_6);
+
+
+function vitesse_1() {
+
+    clearInterval(interval)
+
+    interval = setInterval(tour_de_jeu, 500);
+
+}
+
+function vitesse_2() {
+
+    clearInterval(interval)
+
+    interval = setInterval(tour_de_jeu, 400);
+
+}
+
+function vitesse_3() {
+
+    clearInterval(interval)
+
+    interval = setInterval(tour_de_jeu, 300);
+
+}
+
+function vitesse_4() {
+
+    clearInterval(interval)
+
+    interval = setInterval(tour_de_jeu, 200);
+
+}
+
+function vitesse_5() {
+
+    clearInterval(interval)
+
+    interval = setInterval(tour_de_jeu, 100);
+
+}
+
+function vitesse_6() {
+
+    clearInterval(interval)
+
+    interval = setInterval(tour_de_jeu, 50);
+
+}
+
+
 
 function deplacer() {
 
@@ -142,7 +202,7 @@ function manger() {
         
         grille[spawn.y-1][spawn.x-1] = 1
 
-        score += (10 * tabFantome.length)
+        score = score + (10 * tabFantome.length)
 
         document.getElementById("score_valeur").innerHTML = score ;
 
@@ -184,7 +244,14 @@ function victoire() {
 
     if (gagne) {
 
-        alertify.alert("Vous Avez Gagné !! &#127881; &#127942;");
+        alertify.prompt("Vous Avez Gagné !! &#127881; &#127942;", "Entrez Votre Nom",
+            function(evt, value ){
+
+            nom = value
+
+            }); 
+
+        // alertify.alert("Vous Avez Gagné !! &#127881; &#127942;");
         clearInterval(interval);
 
     }
@@ -373,8 +440,14 @@ function defaite(num) {
     if (pacman_position_x == fantome_position_x && pacman_position_y == fantome_position_y) {
 
         setTimeout(() => {
-            alertify
-            .alert("Vous Avez Perdu ! &#128078;");
+
+            alertify.prompt("Vous Avez Perdu ! &#128078;", "Entrez Votre Nom",
+            function(evt, value ){
+
+            nom = value
+
+            }); 
+            
         }, 200);
         
         clearInterval(interval);
@@ -405,7 +478,11 @@ function reset() {
 
     document.getElementById("score_precedent").innerHTML = score_precedent;
 
+    document.getElementById("difficulte").innerHTML = "(Avec &nbsp;" + document.getElementById("nombre_fantome").value + "&nbsp; fantomes)"
+
     score = 0;
+
+    document.getElementById("nom").innerHTML = "JOUEUR " + nom
 
     interval = setInterval(tour_de_jeu, 500)   
 }
