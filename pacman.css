@@ -1,10 +1,10 @@
 @font-face {
   font-family: PacMan_font;
-  src: url(font/crackman.ttf);
+  src: url(./font/crackman.ttf);
 }
 
 body {
-    background: url(/images/background.gif);
+    background: url(./images/background.gif);
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -139,33 +139,33 @@ input::placeholder {
 }
 
 .mur {
-    background-image: url("/images/mur.gif");
+    background-image: url("./images/mur.gif");
 }
 
 .sol {
-    background-image: url("/images/sol.gif");
+    background-image: url("./images/sol.gif");
 }
 
 .bonbon {
-    background-image: url("/images/bonbon.gif");
+    background-image: url("./images/bonbon.gif");
 }
 
 .player {
-    background-image: url("/images/pacman4.gif");
+    background-image: url("./images/pacman4.gif");
 }
 
 .fantome_0 {
-    background-image: url("/images/fantome0.gif");
+    background-image: url("./images/fantome0.gif");
 }
 
 .fantome_1 {
-    background-image: url("/images/fantome1.gif");
+    background-image: url("./images/fantome1.gif");
 }
 
 .fantome_2 {
-    background-image: url("/images/fantome2.gif");
+    background-image: url("./images/fantome2.gif");
 }
 
 .fantome_3 {
-    background-image: url("/images/fantome3.gif");
+    background-image: url("./images/fantome3.gif");
 }
