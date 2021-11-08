@@ -25,9 +25,11 @@ image_counter++;
 
 // END FAV ICON
 
-let grille = new Grille();
 
-let grille_reset = JSON.parse(JSON.stringify(grille))
+
+// let grille_reset = JSON.parse(JSON.stringify(grille))
+
+let grille = new Grille();
 
 let spawn = new Pacman(1, 2, 1); // 1 = Droite, 2 = Bas, 3 = Gauche, 4 = Haut
 
@@ -116,7 +118,9 @@ function nombre_fantome() {
 
     clearInterval(interval);
     
-    grille = JSON.parse(JSON.stringify(grille_reset))
+    // grille = JSON.parse(JSON.stringify(grille_reset))
+
+    grille = new Grille();
 
     tabFantome = []
     
@@ -144,11 +148,13 @@ function reset() {
 
     clearInterval(interval);
 
-    grille = JSON.parse(JSON.stringify(grille_reset))
+    // grille = JSON.parse(JSON.stringify(grille_reset))
     
     //tabFantome = JSON.parse(JSON.stringify(tabFantome_reset))
 
     tabFantome = []
+
+    grille = new Grille();
 
     spawn.x = 1
     spawn.y = 2
@@ -197,6 +203,10 @@ function tour_de_jeu() {
 
     }
 
-    setTimeout(spawn.victoire, 100);
+    setTimeout(() => {
+        
+        spawn.victoire(grille)
+
+    }, 100);
 
 }
