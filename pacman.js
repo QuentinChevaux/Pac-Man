@@ -25,36 +25,15 @@ image_counter++;
 
 // END FAV ICON
 
-let grille = [                      
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0],
-    [0, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0],
-    [0, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0],
-    [0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0],
-    [0, 2, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 2, 0],
-    [0, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 2, 2, 0],
-    [0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0],
-    [0, 1, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0, 1, 1, 0],  
-    [0, 0, 0, 0, 2, 0, 2, 0, 0, 1, 0, 0, 2, 0, 2, 0, 0, 0, 0],
-    [2, 2, 2, 2, 2, 2, 2, 0, 1, 1, 1, 0, 2, 2, 2, 2, 2, 2, 2],
-    [0, 0, 0, 0, 2, 0, 2, 0, 0, 1, 0, 0, 2, 0, 2, 0, 0, 0, 0],
-    [0, 1, 1, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 0, 2, 0, 1, 1, 0],
-    [0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0],
-    [0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0],
-    [0, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0],
-    [0, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 0],
-    [0, 0, 2, 0, 2, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 2, 0, 0],
-    [0, 2, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 2, 0, 2, 2, 2, 2, 0],
-    [0, 2, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 2, 0],
-    [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-];
+let grille = new Grille();
 
 let grille_reset = JSON.parse(JSON.stringify(grille))
 
 let spawn = new Pacman(1, 2, 1); // 1 = Droite, 2 = Bas, 3 = Gauche, 4 = Haut
 
 let tabFantome = [new Fantome(10, 11, 4)]
+
+let interval = setInterval(tour_de_jeu, 500);
 
 let niveau = document.getElementById("niveau_grid");
 
@@ -67,13 +46,11 @@ let score = 10;
 
 let score_precedent = 0;
 
-let interval = setInterval(tour_de_jeu, 500);
-
-
-
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
+
+
 
 document.getElementById("vitesse_1").addEventListener('click', vitesse_1);
 document.getElementById("vitesse_2").addEventListener('click', vitesse_2);
@@ -131,73 +108,6 @@ function vitesse_6() {
 
 }
 
-function victoire() {
-    
-    let gagne = true
-
-    for (let row = 0; row < rows; row++) {
-
-        for (let column = 0; column < columns; column++) {            
-
-            if (grille[row][column] == 2) {
-
-                gagne = false   
-
-            }
-
-        }
-    }
-
-    if (gagne) {
-
-        alertify.prompt("Vous Avez Gagné !! &#127881; &#127942;", "Entrez Votre Nom",
-            function(evt, value ){
-
-            nom = value
-
-            }); 
-
-        clearInterval(interval);
-
-    }
-}
-
-function play() {
-
-    niveau.innerHTML = ""
-
-    for (let row = 0; row < rows; row++) {
-
-        for (let column = 0; column < columns; column++) {
-
-            if (grille[row][column] == 0) {
-            let mur = document.createElement("div");
-            mur.className = "mur";
-            niveau.appendChild(mur);
-            mur.style.gridRowStart = row + 1;
-            mur.style.gridColumnStart = column + 1;
-            }
-
-            if (grille[row][column] == 1) {
-                let sol = document.createElement("div");
-                sol.className = "sol";
-                niveau.appendChild(sol);
-                sol.style.gridRowStart = row + 1;
-                sol.style.gridColumnStart = column + 1;
-            }
-
-            if (grille[row][column] == 2) {
-                let bonbon = document.createElement("div");
-                bonbon.className = "bonbon";
-                niveau.appendChild(bonbon);
-                bonbon.style.gridRowStart = row + 1;
-                bonbon.style.gridColumnStart = column + 1;
-            }
-
-        }
-    }
-}
-
 document.getElementById("valider_nb_fantome").addEventListener('click', nombre_fantome);
 
 function nombre_fantome() {
@@ -235,16 +145,17 @@ function reset() {
     clearInterval(interval);
 
     grille = JSON.parse(JSON.stringify(grille_reset))
-    tabFantome = JSON.parse(JSON.stringify(tabFantome_reset))
+    
+    //tabFantome = JSON.parse(JSON.stringify(tabFantome_reset))
+
+    tabFantome = []
 
     spawn.x = 1
     spawn.y = 2
     spawn.direction = 1
     
-    for (i = 0; i < tabFantome.length; i++) {
-        tabFantome.x = 10
-        tabFantome.y = 11
-        tabFantome.direction = 4
+    for (i = 0; i < tabFantome_reset.length; i++) {
+        tabFantome.push(new Fantome(10, 11, 4))
     }
 
     score_precedent = score;
@@ -253,7 +164,7 @@ function reset() {
 
     document.getElementById("difficulte").innerHTML = "(Avec &nbsp;" + document.getElementById("nombre_fantome").value + "&nbsp; fantomes)"
 
-    score = 0;
+    score = 10;
 
     document.getElementById("nom").innerHTML = "JOUEUR " + nom
 
@@ -262,13 +173,13 @@ function reset() {
 
 function tour_de_jeu() {
 
-    play();
+    grille.play();
 
     spawn.mouvement();
     spawn.deplacer();
     spawn.tp();
-    spawn.clip();
-    spawn.manger();   
+    spawn.clip(grille);
+    spawn.manger(grille);   
     
     spawn.affiche();
 
@@ -278,7 +189,7 @@ function tour_de_jeu() {
 
         tabFantome[i].tp();
         tabFantome[i].deplacer();
-        tabFantome[i].clip();
+        tabFantome[i].clip(grille);
 
         tabFantome[i].defaite(spawn);
 
@@ -286,6 +197,6 @@ function tour_de_jeu() {
 
     }
 
-    setTimeout(victoire, 100);
+    setTimeout(spawn.victoire, 100);
 
 }

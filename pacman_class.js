@@ -57,9 +57,9 @@ class Pacman {
     
     }
 
-    clip() {
+    clip(grille) {
         
-        if (grille[spawn.y-1][spawn.x-1] == 0) {
+        if (grille.Grille[spawn.y-1][spawn.x-1] == 0) {
     
             if (spawn.direction == 1) {
                 spawn.x = spawn.x-1;
@@ -80,11 +80,11 @@ class Pacman {
         } 
     }
 
-    manger() {
+    manger(grille) {
 
-        if (grille[spawn.y-1][spawn.x-1] == 2) {
+        if (grille.Grille[spawn.y-1][spawn.x-1] == 2) {
             
-            grille[spawn.y-1][spawn.x-1] = 1
+            grille.Grille[spawn.y-1][spawn.x-1] = 1
     
             score = score + (10 * tabFantome.length)
     
@@ -128,6 +128,37 @@ class Pacman {
         }
         else if (spawn.direction == 4) {
             player.style.transform = 'rotate(270deg)'    
+        }
+    }
+
+    victoire(grille) {
+    
+        let gagne = true
+    
+        for (let row = 0; row < rows; row++) {
+    
+            for (let column = 0; column < columns; column++) {            
+    
+                if (grille.Grille[row][column] == 2) {
+    
+                    gagne = false   
+    
+                }
+    
+            }
+        }
+    
+        if (gagne) {
+    
+            alertify.prompt("Vous Avez Gagné !! &#127881; &#127942;", "Entrez Votre Nom",
+                function(evt, value ){
+    
+                nom = value
+    
+                }); 
+    
+            clearInterval(interval);
+    
         }
     }
     

@@ -18,9 +18,9 @@ class Fantome {
         fantome.style.gridRowStart = this.y;    
     }
 
-    clip() {
+    clip(grille) {
         
-        if (grille[this.y-1][this.x-1] == 0) {
+        if (grille.Grille[this.y-1][this.x-1] == 0) {
     
             if (this.direction == 1) {
                 this.x = this.x-1;
