@@ -63,9 +63,13 @@ let score = 10;
 
 let score_precedent = 0;
 
-//play();
-
 let interval = setInterval(tour_de_jeu, 500);
+
+let spawn = new Pacman(1, 2, 1); // 1 = Droite, 2 = Bas, 3 = Gauche, 4 = Haut
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
 
 document.getElementById("vitesse_1").addEventListener('click', vitesse_1);
 document.getElementById("vitesse_2").addEventListener('click', vitesse_2);
@@ -123,108 +127,6 @@ function vitesse_6() {
 
 }
 
-
-
-function deplacer() {
-
-    if (spawn.direction == 1) {
-        spawn.x = spawn.x+1;
-    }
-    else if (spawn.direction == 2) {
-        spawn.y = spawn.y+1;
-    }
-    else if (spawn.direction == 3) {
-        spawn.x = spawn.x-1;
-    }
-    else if (spawn.direction == 4) {
-        spawn.y = spawn.y-1;
-    }
-
-}
-
-function mouvement() {
-
-    document.addEventListener("keyup", function(event) {
-
-        if (event.key === 'd') {
-
-           spawn.direction = 1
-
-        }
-
-        else if (event.key === 's') {
-
-            spawn.direction = 2
-
-        }
-
-        else if (event.key === 'q') {
-
-            spawn.direction = 3
-
-        }
-
-        else if (event.key === 'z') {
-
-            spawn.direction = 4
-
-        }
-    });
-
-}
-
-function clip() {
-        
-    if (grille[spawn.y-1][spawn.x-1] == 0) {
-
-        if (spawn.direction == 1) {
-            spawn.x = spawn.x-1;
-        }
-
-        else if (spawn.direction == 2) {
-            spawn.y = spawn.y-1;
-        }
-
-        else if (spawn.direction == 3) {
-            spawn.x = spawn.x+1;
-        }
-
-        else if (spawn.direction == 4) {
-            spawn.y = spawn.y+1;
-        }
-        
-    } 
-}
-
-function manger() {
-
-    if (grille[spawn.y-1][spawn.x-1] == 2) {
-        
-        grille[spawn.y-1][spawn.x-1] = 1
-
-        score = score + (10 * tabFantome.length)
-
-        document.getElementById("score_valeur").innerHTML = score ;
-
-    }
-}
-
-function tp() {
-
-    if (spawn.x < 1) {
-
-        spawn.x = 19
-
-    }
-
-    if (spawn.x > 19) {
-
-        spawn.x = 1
-
-    }
-
-}
-
 function victoire() {
     
     let gagne = true
@@ -251,7 +153,6 @@ function victoire() {
 
             }); 
 
-        // alertify.alert("Vous Avez Gagné !! &#127881; &#127942;");
         clearInterval(interval);
 
     }
@@ -291,34 +192,6 @@ function play() {
 
         }
     }
-}
-
-function affiche_pacman() {
-    let player = document.createElement("div")
-    player.className = "player"
-    niveau.appendChild(player);
-
-    player.style.gridColumnStart = spawn.x;
-    player.style.gridRowStart = spawn.y;
-
-    if (spawn.direction == 1) {
-        player.style.transform = 'rotate(0deg)' 
-    }
-    else if (spawn.direction == 2) {
-        player.style.transform = 'rotate(90deg)' 
-    }
-    else if (spawn.direction == 3) {
-        player.style.transform = 'rotate(180deg)' 
-    }
-    else if (spawn.direction == 4) {
-        player.style.transform = 'rotate(270deg)'    
-    }
-}
-
-let spawn = {
-    x : 1,
-    y : 2,
-    direction : 1 // 1 = Droite, 2 = Bas, 3 = Gauche, 4 = Haut
 }
 
 let tabFantome = [
@@ -489,17 +362,20 @@ function reset() {
 
 function tour_de_jeu() {
 
-    play(); 
-    deplacer();
-    tp();
-    clip();
-    manger();   
+    play();
+
+    spawn.mouvement();
+    spawn.deplacer();
+    spawn.tp();
+    spawn.clip();
+    spawn.manger();   
     
-    affiche_pacman();
+    spawn.affiche();
 
     for (i = 0; i < tabFantome.length; i++) {
 
         defaite(i); // Avant que le fantome se deplace
+
         tp_fantome(i);
         deplacer_fantome(i);
         clip_fantome(i);
@@ -511,9 +387,3 @@ function tour_de_jeu() {
     setTimeout(victoire, 100);
 
 }
-
-mouvement();
-
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
