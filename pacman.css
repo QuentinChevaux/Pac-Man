@@ -169,3 +169,22 @@ input::placeholder {
 .fantome_3 {
     background-image: url("./images/fantome3.gif");
 }
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+
+    body {
+
+        background-size: cover;
+
+    }
+    
+    #niveau_grid {
+
+        
+
+    }
+
+}
